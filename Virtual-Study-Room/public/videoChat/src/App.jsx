@@ -14,21 +14,20 @@ function randomID(len) {
 }
 
 const ROOMS = {
-  'AI-Room': { name: 'AI Discussion', subject: 'Artificial Intelligence' },
-  'Cyber-Room': { name: 'Mathematics', subject: 'Algebra & Calculus' },
-  'FullStack-Room': { name: 'Science Lab', subject: 'Physics & Chemistry' },
-  'Data Science-Room': { name: 'History', subject: 'World Civilizations' },
+  'AI-Room': { name: 'AI Room', subject: 'Artificial Intelligence' },
+  'Cyber-Room': { name: 'Cyber Security', subject: 'Network Security & Ethical Hacking' },
+  'FullStack-Room': { name: 'Full Stack', subject: 'Web Development' },
+  'Data Science-Room': { name: 'Data Science', subject: 'Machine Learning & Analytics' },
   'General-Room': { name: 'General', subject: 'Open Discussion' }
 };
 
 const ROOM_IMAGES = {
   'AI-Room': 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
-  'Cyber-Room': 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
-  'FullStack-Room': 'https://images.unsplash.com/photo-1575505586569-646b2ca898fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
-  'Data Science-Room': 'https://images.unsplash.com/photo-1589595363745-d842812a9db7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
+  'Cyber-Room': 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
+  'FullStack-Room': 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
+  'Data Science-Room': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80',
   'General-Room': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'
 };
-
 export default function App() {
   const [selectedRoom, setSelectedRoom] = React.useState(null);
 
