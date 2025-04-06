@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>StudyInn - Your Study Hub</title>
+    <title>StudyInn - Your Study Cafe</title>
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="/home/styles.css">
+    <link rel="stylesheet" href="/home/styles.css" />
     
 </head>
 <body>
     <header>
         <div class="container header-content">
             <div class="logo-container">
-                <img src="/home/logo4.png" alt="StudyInn Logo" class="header-logo" />
+                <img src="\home\assets\logo4.png" alt="StudyInn Logo" class="header-logo" />
                 <h1>StudyInn</h1>
             </div>
             <nav>
@@ -24,8 +24,7 @@
                 </ul>
             </nav>
             <div class="auth-links">
-                <a href="/home/signin.html">Sign In</a>
-                <a href="/home/signup.html">Sign Up</a>
+                <a href="/home/auth.html">Sign In / Sign Up</a>
             </div>
         </div>
     </header>
@@ -37,13 +36,34 @@
               <div class="hero-text">
                 <h2>Welcome to StudyInn!</h2>
                 <p>Join the ultimate study community—where students connect, learn, and grow together!</p>
-                <a href="/login" class="get-started-btn">Get Started</a>
+                <a href="/home/auth.html" class="get-started-btn">Get Started</a>
               </div>
               <div class="hero-image">
                 <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644" alt="Students studying together" />
               </div>
             </div>
           </div>
+
+
+             <!-- Services Section -->
+             <section class="services-section" id="services" data-aos="fade-up" data-aos-offset="200">
+                <!-- <div class="services-container" data-aos="zoom-in" data-aos-delay="200"></div> -->
+                <h2>Our Services</h2>
+                <div class="services-list">
+                    <div class="service-item">
+                        <h3>Join Room</h3>
+                        <p>Connect with study groups instantly by joining existing rooms.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Chat</h3>
+                        <p>Communicate seamlessly with fellow students in real-time.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Notes</h3>
+                        <p>Share and access study materials. Upload your own notes to help peers or browse through a collection of high-quality notes from other students.</p>
+                    </div>
+                </div>
+            </section>
 
         <!-- About Section -->
         <section class="about-section" id="about" data-aos="fade-up">
@@ -52,25 +72,7 @@
             <p>Founded in 2025, StudyInn blends modern technology with a passion for education to create a platform that’s both intuitive and inspiring. Whether you're preparing for exams or working on group projects, StudyInn is here to support your journey.</p>
         </section>
 
-        <!-- Services Section -->
-        <section class="services-section" id="services" data-aos="fade-up">
-            <!-- <div class="services-container" data-aos="zoom-in" data-aos-delay="200"></div> -->
-            <h2>Our Services</h2>
-            <div class="services-list">
-                <div class="service-item">
-                    <h3>Join Room</h3>
-                    <p>Connect with study groups instantly by joining existing rooms.</p>
-                </div>
-                <div class="service-item">
-                    <h3>Chat</h3>
-                    <p>Communicate seamlessly with fellow students in real-time.</p>
-                </div>
-                <div class="service-item">
-                    <h3>Notes</h3>
-                    <p>Share and access study materials. Upload your own notes to help peers or browse through a collection of high-quality notes from other students.</p>
-                </div>
-            </div>
-        </section>
+   
         <!--Reviews Section-->
         <section class="reviews-section" id="reviews" data-aos="fade-up">
             <h2>What Students Say</h2>
@@ -78,9 +80,9 @@
                 <!-- Existing review cards remain unchanged -->
                 <div class="review-card">
                     <div class="reviewer-info">
-                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah K." class="reviewer-avatar">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Sarah K." class="reviewer-avatar">
                         <div class="reviewer-details">
-                            <h4>Sarah K.</h4>
+                            <h4>Vandana.</h4>
                             <div class="rating">★★★★★</div>
                         </div>
                     </div>
@@ -89,9 +91,9 @@
                 
                 <div class="review-card">
                     <div class="reviewer-info">
-                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="David P." class="reviewer-avatar">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="David P." class="reviewer-avatar">
                         <div class="reviewer-details">
-                            <h4>David P.</h4>
+                            <h4>David</h4>
                             <div class="rating">★★★★☆</div>
                         </div>
                     </div>
@@ -100,9 +102,9 @@
                 
                 <div class="review-card">
                     <div class="reviewer-info">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya M." class="reviewer-avatar">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Priya M." class="reviewer-avatar">
                         <div class="reviewer-details">
-                            <h4>Priya M.</h4>
+                            <h4>Akshita</h4>
                             <div class="rating">★★★★★</div>
                         </div>
                     </div>
@@ -111,47 +113,40 @@
                 </div>
             </div>
             
-            <!-- Add Review Button -->
-            <div class="review-cta">
-                <button class="review-btn">Leave a Review</button>
-            </div>
+            <!-- Add Review Button + Dropdown Form -->
+            <div class="review-dropdown">
+                <input type="checkbox" id="toggleReview" class="toggle-checkbox" />
+                <label for="toggleReview" class="review-btn">Leave a Review</label>
 
-            <!-- Review Form Overlay -->
-            <div class="review-form-overlay">
-                <div class="review-form-container">
+                <div class="review-dropdown-form">
                     <form class="review-form">
-                        <button type="button" class="close-form">&times;</button>
-                        <h3>Write Your Review</h3>
-                        
-                        <div class="form-group">
-                            <label for="reviewer-name">Your Name</label>
-                            <input type="text" id="reviewer-name" required placeholder="Enter your name">
-                        </div>
+                    <h3>Write Your Review</h3>
 
-                        <div class="form-group">
-                            <label>Rating</label>
-                            <div class="star-rating">
-                                <span class="star" data-value="1">★</span>
-                                <span class="star" data-value="2">★</span>
-                                <span class="star" data-value="3">★</span>
-                                <span class="star" data-value="4">★</span>
-                                <span class="star" data-value="5">★</span>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="reviewer-name">Your Name</label>
+                        <input type="text" id="reviewer-name" required placeholder="Enter your name">
+                    </div>
 
-                        <div class="form-group">
-                            <label for="review-text">Your Review</label>
-                            <textarea id="review-text" rows="5" required placeholder="Share your experience..."></textarea>
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <div class="star-rating">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
                         </div>
+                    </div>
 
-                        <div class="form-actions">
-                            <button type="button" class="cancel-btn">Cancel</button>
-                            <button type="submit" class="submit-btn">Submit Review</button>
-                        </div>
+                    <div class="form-group">
+                        <label for="review-text">Your Review</label>
+                        <textarea id="review-text" rows="4" required placeholder="Share your experience..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Submit Review</button>
                     </form>
                 </div>
             </div>
-        </section>
         
     </main>
 
@@ -164,18 +159,50 @@
             <p>© 2025 StudyInn. All rights reserved.</p>
         </div>
     </footer>
-    <script src="/home/reviews.js"></script>
+    <!-- <script src="reviews.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
-<script>
-    window.addEventListener("load", function () {
-      document.body.classList.add("loaded");
+    <script>
+
+AOS.init({
+        duration: 800,
+        easing: 'ease-out-quad',
+        once: true
+    });
+        document.addEventListener('DOMContentLoaded', function() {
+        const particleContainer = document.createElement('div');
+        particleContainer.className = 'particle-bg';
+        document.body.prepend(particleContainer);
+        
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Random properties
+            const size = Math.random() * 5 + 2;
+            const posX = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = 10 + Math.random() * 20;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${posX}%`;
+            particle.style.animationDelay = `${delay}s`;
+            particle.style.animationDuration = `${duration}s`;
+            
+            particleContainer.appendChild(particle);
+        }
+    });
+        setTimeout(() => {
+          AOS.init();
+        }, 500);
+      </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init();
     });
   </script>
+  <script src="/home/home.js"></script>
+  
 </body>
 
 </html>
-
-

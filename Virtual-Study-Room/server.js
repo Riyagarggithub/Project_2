@@ -6,10 +6,10 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/notes', {
+mongoose.connect('mongodb+srv://sonamyadav90990:WKVUZJvV4WATZFUc@cluster0.36v3lwh.mongodb.net/', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -36,29 +36,38 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Serve static files from public directory
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'notesApp', 'uploads')));
-// File upload route
+
+// Upload file
 app.post('/api/files/upload', upload.single('file'), async (req, res) => {
     try {
+        const relativePath = `/uploads/${req.file.originalname}`;
+
         const newFile = new File({
             filename: req.file.originalname,
-            path: req.file.path,
+            path: relativePath,
             mimetype: req.file.mimetype
         });
+
         await newFile.save();
-        res.status(201).json({ 
-            message: 'File uploaded successfully', 
-            file: newFile
+        res.status(201).json({
+            message: 'File uploaded successfully',
+            file: {
+                filename: newFile.filename,
+                path: relativePath,
+                mimetype: newFile.mimetype,
+                _id: newFile._id
+            }
         });
     } catch (error) {
         res.status(500).json({ message: 'Error uploading file', error: error.message });
     }
 });
 
-
+// Search files
 app.get('/api/files/search', async (req, res) => {
     try {
         const { filename } = req.query;
@@ -71,79 +80,81 @@ app.get('/api/files/search', async (req, res) => {
     }
 });
 
-// Serve uploaded files
+// Delete file
 app.delete('/api/files/:id', async (req, res) => {
-  try {
-      const file = await File.findById(req.params.id);
-      if (!file) return res.status(404).json({ message: 'File not found' });
+    try {
+        const file = await File.findById(req.params.id);
+        if (!file) return res.status(404).json({ message: 'File not found' });
 
-      fs.unlinkSync(file.path); // Delete the file from uploads folder
-      await File.findByIdAndDelete(req.params.id); // Remove from DB
+        // Construct actual file path on server
+        const absolutePath = path.join(__dirname, 'public', 'notesApp', file.path.replace('/uploads/', 'uploads/'));
 
-      res.json({ message: 'File deleted successfully' });
-  } catch (err) {
-      res.status(500).json({ message: 'Failed to delete file', error: err });
-  }
+        fs.unlinkSync(absolutePath); // Delete from filesystem
+        await File.findByIdAndDelete(req.params.id); // Delete from DB
+
+        res.json({ message: 'File deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to delete file', error: err.message });
+    }
 });
+
+// Static routes
 app.use('/video', express.static(path.join(__dirname, 'public', 'videoChat', 'dist')));
-// Route for home page
+
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public','home', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'home', 'index.html'));
 });
+
 app.get('/chat', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public','chat', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'chat', 'index.html'));
 });
+
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'home','auth.html'));
+    res.sendFile(path.join(__dirname, 'public', 'home', 'auth.html'));
 });
+
 app.get('/video', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'videoChat', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'videoChat', 'dist', 'index.html'));
 });
+
 app.get('/files', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'notesApp','public','index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'notesApp', 'public', 'index.html'));
 });
 
 // Start server
 const server = app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
 
-// Initialize Socket.io
+// Socket.io setup
 const io = socketio(server);
-
-// Store connected users
 const users = {};
 
-// Socket.io connection handling
 io.on('connection', (socket) => {
-  console.log('New user connected');
+    console.log('New user connected');
 
-  // When a new user joins
-  socket.on('new-user', (username) => {
-    users[socket.id] = username;
-    socket.broadcast.emit('user-connected', username);
-    io.emit('update-users', Object.values(users));
-  });
-
-  // When a message is sent
-  socket.on('send-chat-message', (message) => {
-    socket.broadcast.emit('chat-message', {
-      message,
-      username: users[socket.id]
+    socket.on('new-user', (username) => {
+        users[socket.id] = username;
+        socket.broadcast.emit('user-connected', username);
+        io.emit('update-users', Object.values(users));
     });
-  });
 
-  // When someone is typing
-  socket.on('typing', () => {
-    socket.broadcast.emit('user-typing', users[socket.id]);
-  });
+    socket.on('send-chat-message', (message) => {
+        socket.broadcast.emit('chat-message', {
+            message,
+            username: users[socket.id]
+        });
+    });
 
-  // When user disconnects
-  socket.on('disconnect', () => {
-    const username = users[socket.id];
-    delete users[socket.id];
-    socket.broadcast.emit('user-disconnected', username);
-    io.emit('update-users', Object.values(users));
-    console.log('User disconnected');
-  });
+    socket.on('typing', () => {
+        socket.broadcast.emit('user-typing', users[socket.id]);
+    });
+
+    socket.on('disconnect', () => {
+        const username = users[socket.id];
+        delete users[socket.id];
+        socket.broadcast.emit('user-disconnected', username);
+        io.emit('update-users', Object.values(users));
+        console.log('User disconnected');
+    });
 });

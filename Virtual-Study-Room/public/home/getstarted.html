@@ -1,30 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StudyInn Features</title>
-    <link rel="stylesheet" href="/home/getstarted.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyInn Features</title>
+  <link rel="stylesheet" href="/home/getstarted.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to StudyInn</h1>
-        <p>Explore our amazing features</p>
-        <div class="feature-card">
-            <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Join Room">
-            <h3><a href="/video">Join Room</a></h3>
-            <p>Join study rooms with ease and collaborate with peers.</p>
-        </div>
-        <div class="feature-card">
-            <img src="https://img.icons8.com/?size=100&id=7859&format=png" alt="Chat">
-            <h3><a href="/chat">Chat</a></h3>
-            <p>Communicate seamlessly with your peers in real-time.</p>
-        </div>
-        <div class="feature-card">
-            <img src="https://img.icons8.com/?size=96&id=4TitHka0gqrV&format=png" alt="Notes">
-            <h3><a href="/files">Notes</a></h3>
-            <p>Take and share notes effortlessly during your sessions.</p>
-        </div>
+  <div class="container">
+    <h1>Welcome to StudyInn</h1>
+    <p class="welcome-message">Your current login streak is: <span id="streakCount">Loading...</span> 🔥</p>
+  
+    <div class="feature-card video">
+      <img src="https://cdn-icons-png.flaticon.com/512/3059/3059518.png" alt="Join Room">
+      <h3><a href="/video">Join Room</a></h3>
+      <p>Join study rooms with ease and collaborate with peers.</p>
     </div>
+
+    <div class="feature-card chat">
+      <img src="https://img.icons8.com/?size=100&id=7859&format=png" alt="Chat">
+      <h3><a href="/chat">Chat</a></h3>
+      <p>Communicate seamlessly with your peers in real-time.</p>
+    </div>
+
+    <div class="feature-card notes">
+      <img src="https://img.icons8.com/?size=96&id=4TitHka0gqrV&format=png" alt="Notes">
+      <h3><a href="/files">Notes</a></h3>
+      <p>Take and share notes effortlessly during your sessions.</p>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    // Display streak from localStorage
+    window.onload = function () {
+      const streak = localStorage.getItem("streak");
+      const streakDisplay = document.getElementById("streakCount");
+
+      if (streak) {
+        streakDisplay.textContent = streak;
+      } else {
+        streakDisplay.textContent = "0";
+      }
+    };
+
+    // Logout
+    function logout() {
+      localStorage.removeItem("streak");
+      localStorage.removeItem("loggedInUserId");
+      window.location.href = "./index.html"; // Redirect to login page
+    }
+  </script>
 </body>
 </html>
