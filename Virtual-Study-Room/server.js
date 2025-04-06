@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 5555;
+const PORT =  10002;
 
 // Connect to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/notes', {
