@@ -9,7 +9,7 @@ const app = express();
 const PORT =  10002;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/notes', {
+mongoose.connect('mongodb+srv://rirurugarg:8qjoiDxOpo9fEjLf@ytcluster.uvzz7xt.mongodb.net/?retryWrites=true&w=majority&appName=YTCluster', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
