@@ -6,7 +6,9 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 const app = express();
-const PORT = 3000;
+
+const PORT = 10002;
+
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://sonamyadav90990:WKVUZJvV4WATZFUc@cluster0.36v3lwh.mongodb.net/', {
@@ -157,4 +159,4 @@ io.on('connection', (socket) => {
         io.emit('update-users', Object.values(users));
         console.log('User disconnected');
     });
-});
+}

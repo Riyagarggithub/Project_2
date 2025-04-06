@@ -5,8 +5,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "heroku-postbuild": "cd public/videoChat && npm install && npm run build"
-    
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
