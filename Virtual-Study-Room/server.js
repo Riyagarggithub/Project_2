@@ -132,7 +132,7 @@ const server = app.listen(PORT, () => {
 const io = socketio(server);
 const users = {};
 
-io.on('connection', (socket) => {
+io.on('connection', (socket)) => {
     console.log('New user connected');
 
     socket.on('new-user', (username) => {
