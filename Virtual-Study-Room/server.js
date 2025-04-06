@@ -4,6 +4,7 @@ const path = require('path');
 const multer = require('multer');
 const mongoose = require('mongoose');
 const fs = require('fs');
+require('dotenv').config();
 
 const app = express();
 
@@ -11,7 +12,7 @@ const PORT = 10002;
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://sonamyadav90990:WKVUZJvV4WATZFUc@cluster0.36v3lwh.mongodb.net/', {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -132,7 +133,7 @@ const server = app.listen(PORT, () => {
 const io = socketio(server);
 const users = {};
 
-io.on('connection', (socket)) => {
+io.on('connection', (socket) => {
     console.log('New user connected');
 
     socket.on('new-user', (username) => {
@@ -159,4 +160,4 @@ io.on('connection', (socket)) => {
         io.emit('update-users', Object.values(users));
         console.log('User disconnected');
     });
-}
+});
